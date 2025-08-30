@@ -64,11 +64,10 @@ void System::systemSetup(){
     networkmanager.registerService(solservice1,sol1.getThisNetworkCallback());
     networkmanager.registerService(solservice2,sol2.getThisNetworkCallback());
     networkmanager.registerService(solservice3,sol3.getThisNetworkCallback());
+    pinMode(PinMap::highSideEN,OUTPUT);
+    digitalWrite(PinMap::highSideEN, HIGH);
 };
 
-long prevTime = 0;
-
 void System::systemUpdate(){
-
     curr_sensor.update();
 };

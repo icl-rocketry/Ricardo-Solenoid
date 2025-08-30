@@ -21,4 +21,7 @@ namespace PinMap{
 
     static constexpr int SDA = 10;
     static constexpr int SCL = 11;
+
+    static constexpr int highSideEN = 9;
+
 };
