@@ -20,26 +20,26 @@
 System::System():
 RicCoreSystem(Commands::command_map,Commands::defaultEnabledCommands,Serial),
 canbus(systemstatus, PinMap::TxCan, PinMap::RxCan, 3),
-sol0(PinMap::Nuke1, networkmanager),
-sol1(PinMap::Nuke2, networkmanager),
-sol2(PinMap::Nuke3, networkmanager),
-sol3(PinMap::Nuke4, networkmanager),
+sol0(PinMap::Nuke1, PinMap::Cont1, networkmanager),
+sol1(PinMap::Nuke2, PinMap::Cont2, networkmanager),
+sol2(PinMap::Nuke3, PinMap::Cont3, networkmanager),
+sol3(PinMap::Nuke4, PinMap::Cont4, networkmanager),
 I2C(0),
 curr_sensor(0b1000000, I2C)
 {};
 
 
 void System::systemSetup(){
-    
+
     Serial.setRxBufferSize(GeneralConfig::SerialRxSize);
     Serial.begin(GeneralConfig::SerialBaud);
-   
+
     //intialize rnp message logger
     loggerhandler.retrieve_logger<RicCoreLoggingConfig::LOGGERS::SYS>().initialize(networkmanager);
 
     //initialize statemachine with idle state
     statemachine.initalize(std::make_unique<Idle>(systemstatus,commandhandler));
-    
+
     //any other setup goes here
     canbus.setup();
     networkmanager.addInterface(&canbus);
